@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  roadtape v0.1.0 — app manifest (AAOS / Pleos Connect prototype)
+  Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Install path: app/src/main/AndroidManifest.xml
+  Changelog:
+    v0.1.0 2026-11-13 Claude Fable 5.2 initial project setup
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Runs on a car head unit; also installs on a plain emulator for audio tests. -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="false" />
+
+    <!-- AAOS standard vehicle properties: speed and gear. -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <uses-library
+            android:name="android.car"
+            android:required="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+        </activity>
+    </application>
+
+</manifest>

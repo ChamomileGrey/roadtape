@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  roadtape v0.1.0 — user-facing strings (Korean; the contest audience is Korean)
+  Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Install path: app/src/main/res/values/strings.xml
+  Changelog:
+    v0.1.0 2026-11-13 Claude Fable 5.2 initial strings
+-->
+<resources>
+    <string name="app_name">RoadTape</string>
+    <string name="tagline">창문을 닫아도, 바깥의 소리를</string>
+    <string name="open_window_on">오픈윈도 켜기</string>
+    <string name="open_window_off">오픈윈도 끄기</string>
+    <string name="speed_format">%d km/h</string>
+    <string name="source_sim">속도 신호: 시뮬레이션</string>
+    <string name="source_car">속도 신호: 차량 (AAOS)</string>
+    <string name="intensity_title">바깥을 여는 정도</string>
+    <string name="intensity_low">은은하게</string>
+    <string name="intensity_mid">창문 반쯤</string>
+    <string name="intensity_high">창문 활짝</string>
+    <string name="gear_park_hint">P단: 테이프 편집 가능 (준비 중)</string>
+    <string name="gear_drive_hint">주행 중: 편집 기능 잠금</string>
+    <string name="demo_title">시연용 입력 패널</string>
+    <string name="demo_note">차량 신호가 연결되지 않은 항목을 직접 조작합니다.</string>
+    <string name="demo_speed">속도</string>
+    <string name="demo_use_car_speed">차량 속도 신호 사용</string>
+    <string name="demo_wiper">와이퍼 단계 (빗소리)</string>
+    <string name="wiper_off">끔</string>
+    <string name="wiper_1">1단</string>
+    <string name="wiper_2">2단</string>
+    <string name="wiper_3">3단</string>
+    <string name="demo_window">실제 창문 열림 (앱 소리 자동 감소)</string>
+    <string name="percent_format">%d%%</string>
+    <string name="demo_tunnel">터널 구간</string>
+    <string name="demo_gear">기어</string>
+    <string name="gear_p">P</string>
+    <string name="gear_d">D</string>
+    <string name="focus_denied">다른 소리가 재생 중이어서 켤 수 없습니다.</string>
+</resources>

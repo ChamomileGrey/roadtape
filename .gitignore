@@ -1,0 +1,17 @@
+# roadtape v0.1.0 — files kept out of version control
+# Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
+# Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+# Install path: .gitignore
+# Changelog:
+#   v0.1.0 2026-11-13 Claude Fable 5.2 initial project setup
+
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+captures/
+.DS_Store
+*.jks
+*.keystore

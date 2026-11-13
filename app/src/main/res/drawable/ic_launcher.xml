@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  roadtape v0.1.0 — launcher icon (three sound-wave arcs on a dark tile)
+  Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Install path: app/src/main/res/drawable/ic_launcher.xml
+  Changelog:
+    v0.1.0 2026-11-13 Claude Fable 5.2 initial icon
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#10202B"
+        android:pathData="M12,0h84a12,12 0,0 1,12 12v84a12,12 0,0 1,-12 12h-84a12,12 0,0 1,-12 -12v-84a12,12 0,0 1,12 -12z" />
+    <path
+        android:pathData="M20,74 C36,58 72,58 88,74"
+        android:strokeColor="#5EC8E5"
+        android:strokeWidth="6"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M30,58 C42,46 66,46 78,58"
+        android:strokeColor="#8FDDF0"
+        android:strokeWidth="6"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M40,42 C47,35 61,35 68,42"
+        android:strokeColor="#D2F3FA"
+        android:strokeWidth="6"
+        android:strokeLineCap="round" />
+</vector>
