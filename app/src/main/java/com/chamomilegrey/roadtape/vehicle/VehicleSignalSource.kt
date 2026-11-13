@@ -1,10 +1,11 @@
 /*
- * roadtape v0.1.0 — vehicle signal abstraction and the AAOS Car API implementation
+ * roadtape v0.1.2 — vehicle signal abstraction and the AAOS Car API implementation
  * Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
- * Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+ * Modified: 2026-11-14 by Claude Fable 5.2 via claude.ai
  * Install path: app/src/main/java/com/chamomilegrey/roadtape/vehicle/VehicleSignalSource.kt
  * Changelog:
  *   v0.1.0 2026-11-13 Claude Fable 5.2 speed and gear from CarPropertyManager
+ *   v0.1.2 2026-11-14 Claude Fable 5.2 log why the Car API could not be used
  */
 package com.chamomilegrey.roadtape.vehicle
 
@@ -15,6 +16,7 @@ import android.car.hardware.CarPropertyValue
 import android.car.hardware.property.CarPropertyManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import kotlin.math.abs
 
 /** One update from the vehicle. A null field means "not part of this update". */
@@ -75,8 +77,10 @@ class CarPropertyVehicleSource(private val context: Context) : VehicleSignalSour
             propertyManager.registerCallback(
                 callback, VehiclePropertyIds.GEAR_SELECTION, CarPropertyManager.SENSOR_RATE_ONCHANGE
             )
+            if (!speedOk) Log.w(TAG, "PERF_VEHICLE_SPEED callback was not registered")
             speedOk
         } catch (e: Exception) {
+            Log.w(TAG, "Car API unavailable", e)
             stop()
             false
         }
@@ -88,5 +92,9 @@ class CarPropertyVehicleSource(private val context: Context) : VehicleSignalSour
         manager = null
         car = null
         listener = null
+    }
+
+    private companion object {
+        const val TAG = "RoadTape"
     }
 }

@@ -1,10 +1,11 @@
 /*
- * roadtape v0.1.0 — single-screen UI: open-window switch, intensity, demo input panel
+ * roadtape v0.1.2 — single-screen UI: open-window switch, intensity, demo input panel
  * Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
- * Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+ * Modified: 2026-11-14 by Claude Fable 5.2 via claude.ai
  * Install path: app/src/main/java/com/chamomilegrey/roadtape/MainActivity.kt
  * Changelog:
  *   v0.1.0 2026-11-13 Claude Fable 5.2 initial screen with simulated and AAOS inputs
+ *   v0.1.2 2026-11-14 Claude Fable 5.2 scale UI for large car displays, show why car speed is not connected
  */
 package com.chamomilegrey.roadtape
 
@@ -38,6 +39,8 @@ class MainActivity : Activity() {
     private var carAvailable = false
     private var useCarSpeed = false
     private var inPark = true
+    private var carIssue = 0
+    private var uiScale = 1f
 
     private lateinit var powerButton: Button
     private lateinit var speedText: TextView
@@ -68,8 +71,12 @@ class MainActivity : Activity() {
 
     override fun onRequestPermissionsResult(code: Int, permissions: Array<String>, results: IntArray) {
         super.onRequestPermissionsResult(code, permissions, results)
-        if (code == REQUEST_CAR_SPEED && results.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+        if (code != REQUEST_CAR_SPEED) return
+        if (results.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
             startCarSource()
+        } else {
+            carIssue = R.string.source_sim_no_permission
+            refreshSource()
         }
     }
 
@@ -90,6 +97,9 @@ class MainActivity : Activity() {
         if (carAvailable) {
             carSource = source
             useCarSpeed = true
+            carIssue = 0
+        } else {
+            carIssue = R.string.source_sim_unavailable
         }
         refreshSource()
     }
@@ -113,7 +123,13 @@ class MainActivity : Activity() {
     }
 
     private fun refreshSource() {
-        sourceText.setText(if (useCarSpeed) R.string.source_car else R.string.source_sim)
+        sourceText.setText(
+            when {
+                useCarSpeed -> R.string.source_car
+                carIssue != 0 -> carIssue
+                else -> R.string.source_sim
+            }
+        )
         carSpeedCheck.isEnabled = carAvailable
         carSpeedCheck.isChecked = useCarSpeed
         speedBar.isEnabled = !useCarSpeed
@@ -129,6 +145,8 @@ class MainActivity : Activity() {
     // ---- UI ----------------------------------------------------------------
 
     private fun buildUi() {
+        // Car displays are large and low-density; scale sizes up so targets stay glanceable.
+        uiScale = (resources.configuration.smallestScreenWidthDp / 480f).coerceIn(1f, 2.2f)
         val landscape = resources.displayMetrics.widthPixels > resources.displayMetrics.heightPixels
         val root = LinearLayout(this).apply {
             orientation = if (landscape) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
@@ -163,7 +181,7 @@ class MainActivity : Activity() {
         addView(sourceText)
 
         powerButton = Button(this@MainActivity).apply {
-            textSize = 26f
+            textSize = sp(26f)
             setTypeface(typeface, Typeface.BOLD)
             isAllCaps = false
             minimumHeight = dp(112)
@@ -205,7 +223,7 @@ class MainActivity : Activity() {
         addView(speedBar, spaced(top = 4))
         carSpeedCheck = CheckBox(this@MainActivity).apply {
             setText(R.string.demo_use_car_speed)
-            textSize = 16f
+            textSize = sp(16f)
             setTextColor(Color.WHITE)
             setOnCheckedChangeListener { _, checked ->
                 useCarSpeed = checked && carAvailable
@@ -243,7 +261,7 @@ class MainActivity : Activity() {
         // Tunnel
         addView(CheckBox(this@MainActivity).apply {
             setText(R.string.demo_tunnel)
-            textSize = 18f
+            textSize = sp(18f)
             setTextColor(Color.WHITE)
             minimumHeight = dp(64)
             isChecked = engine.synth.inTunnel
@@ -266,7 +284,7 @@ class MainActivity : Activity() {
     private fun label(textRes: Int, sizeSp: Float, color: Int, bold: Boolean = false) =
         TextView(this).apply {
             if (textRes != 0) setText(textRes)
-            textSize = sizeSp
+            textSize = sp(sizeSp)
             setTextColor(color)
             if (bold) setTypeface(typeface, Typeface.BOLD)
         }
@@ -297,7 +315,7 @@ class MainActivity : Activity() {
         labels.forEachIndexed { index, textRes ->
             val button = Button(this).apply {
                 setText(textRes)
-                textSize = 18f
+                textSize = sp(18f)
                 isAllCaps = false
                 minimumHeight = dp(76)
                 gravity = Gravity.CENTER
@@ -325,7 +343,9 @@ class MainActivity : Activity() {
         cornerRadius = dp(14).toFloat()
     }
 
-    private fun dp(value: Int): Int = (value * resources.displayMetrics.density).roundToInt()
+    private fun dp(value: Int): Int = (value * resources.displayMetrics.density * uiScale).roundToInt()
+
+    private fun sp(value: Float): Float = value * uiScale
 
     companion object {
         private const val PERMISSION_CAR_SPEED = "android.car.permission.CAR_SPEED"

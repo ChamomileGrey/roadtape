@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  roadtape v0.1.0 — user-facing strings (Korean; the contest audience is Korean)
+  roadtape v0.1.2 — user-facing strings (Korean; the contest audience is Korean)
   Created: 2026-11-13 by Claude Fable 5.2 via claude.ai
-  Modified: 2026-11-13 by Claude Fable 5.2 via claude.ai
+  Modified: 2026-11-14 by Claude Fable 5.2 via claude.ai
   Install path: app/src/main/res/values/strings.xml
   Changelog:
     v0.1.0 2026-11-13 Claude Fable 5.2 initial strings
+    v0.1.2 2026-11-14 Claude Fable 5.2 car-signal status strings
 -->
 <resources>
     <string name="app_name">RoadTape</string>
@@ -14,6 +15,8 @@
     <string name="open_window_off">오픈윈도 끄기</string>
     <string name="speed_format">%d km/h</string>
     <string name="source_sim">속도 신호: 시뮬레이션</string>
+    <string name="source_sim_no_permission">속도 신호: 시뮬레이션 (차량 속도 권한 없음)</string>
+    <string name="source_sim_unavailable">속도 신호: 시뮬레이션 (차량 신호 연결 실패)</string>
     <string name="source_car">속도 신호: 차량 (AAOS)</string>
     <string name="intensity_title">바깥을 여는 정도</string>
     <string name="intensity_low">은은하게</string>
